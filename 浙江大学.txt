@@ -12,6 +12,8 @@
 	input（“中间可以插入提示语”）所有输入读入字符串
 	如果要进行转换，需要强制类型转换 如 a = int(input())
 	输入多个值：a, b = input().split() 一行输入两个数据
+	！！！：
+	x, y = map(int, input().split()) 可以一行输入多个数据，并且进行类型转换
 	
 	print(a, b, c...) print 中间可以接受多个参数！！！
 	print默认以换行符输出结束：print（a, end =‘ ’可以接受一个结束的参数！！！
@@ -222,13 +224,43 @@ If语句：(逻辑关系通过缩紧来实现）
 		如果给时间就可以给出不同的序列
 	
 
+2020.3.10
+If语句：
+	if (条件表达式 1.逻辑表达式 2.元素是否在列表中）:
+		dent
+	else: 
 
-	
-	
-	
-	
-	
+！！tips！！：x, y = map(int, input().split()) 可以一行输入多个数据，并且进行类型转换	(split()就是将input转换为一个列表）
+	map(function, utterable, ...)
+	第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 	function 函数返回值的新列表
 
+while语句：
+	while ... :
+		dent
+	python经常使用while true 然后用if + break 破除
+
+for语句：
+	1.遍历一个列表 2.计数循环（range())
+
+	如何区别中途break和遍历结束呢？
+		1.添加flag（其他语言） 
+		2.python大法！
+			for ... :
+				...
+			else:（for循环正常结束则执行！！！）
+				...
+Range函数，产生数列：
+	range(start , end, step)从start开始到end结束（不包括end）步长为step
+
+异常：！！！！！
+	try:
+	 	...(异常出现但程序不终止）
+	except:（任何异常均可以处理！）		：：有一些常见的异常！可以去参考一下有对应的表格！
+		...（except提供一些错误消息）
+	else:
+		...(try正常执行不抛出异常则执行）
+	finally：
+		...（不管异不异均执行)
 	
 	
 	
