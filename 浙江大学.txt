@@ -217,6 +217,8 @@ If语句：(逻辑关系通过缩紧来实现）
 随机函数库：
 	import random
 	random.shuffle(...)：将一个列表打乱顺序
+	random.uniform(...):生成a,b间均匀分布的数
+	random.randint(...):生成a,b的整数
 	random.choice(...)：随机找出一个元素
 	random.random（闭区间, 开区间）：找出一个0-1的浮点数
 	random.seed():随机数种子，一个确定的seed对应一个随机数序列
