@@ -1,4 +1,3 @@
-
 char = input()
 str1 = input()
 pos = []
