@@ -14,7 +14,7 @@ from KNN import Point, KNN
 sample = KNN(type1+type2, sign1+sign2)
 # 有待分类的数据集
 unknown = [Point([4.9, 3.1]), Point([5.7, 2.8])]
-sample.classify(unknown)
+sample.classify(unknown, 7)
 for item in unknown:
     item.getType()
 
