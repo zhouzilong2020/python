@@ -13,15 +13,12 @@ def getData(filename):
     f = open(f"{filename}", 'r')
     lines = f.readlines()
     data = []
-    for line in lines:
-        # split()可以将两个字符串中间的任意空格、制表符全部清除、作为分隔符号分割
-        line = line.split()
-        line = list(map(float, line))
-        data.append(line)
+    if(len(lines[0].split()) > 1):
+        for line in lines:
+            line = list(map(float, line.split()))
+            data.append(line)
+    else:
+        for line in lines:
+            line = float(line)
+            data.append(line)
     return data
-
-dataSet = getData('lecture 4/山-变色鸢尾花瓣.txt')
-typeSet = getData('lecture 4/山-变色鸢尾花瓣分类.txt')
-typeSet = list(map(lambda x:x.extend(x), typeSet))
-print(dataSet)
-print(typeSet)
