@@ -116,6 +116,7 @@ class NGA:
 
 
 def f1(v):
+    global A, t
     a,k1,k2=v
     predict = a*k1*(np.exp(-k1*t)-np.exp(-k2*t))/(k2-k1)
     error = np.sum((A-predict)**2)
@@ -127,3 +128,7 @@ A = data[:, 1]
 nga=NGA(100,3,10,90,1000,f1)
 nga.solve()
 print(nga.getAnswer())
+# 计算结果
+# solution: [0.98991855 0.03110943 0.00304014]
+# func value: 0.0033771936852565734
+# [0.98991855 0.03110943 0.00304014]
