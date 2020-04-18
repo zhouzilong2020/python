@@ -379,6 +379,14 @@ lambda表达式：
 	***zip()函数打包两个东西，可以巧妙使用，互换字典的
 		这里也可以使用zip来用一个for循环遍历两个列表的对应元素
 	eval()计算表达式
+	****!!!
+	eval()可以按照python的语法读入一个字符串并创建对象：
+	eg.:
+		User_input = {'a':100}
+		b = eval(User_input())//可以直接生成一个字典！
+
+	
+
 	exec()运行一个python程序
 	all()全部true
 	any()有一个true //空列表、0都是false

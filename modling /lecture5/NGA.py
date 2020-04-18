@@ -122,7 +122,7 @@ def f1(v):
     error = np.sum((A-predict)**2)
     return error
 
-data = np.loadtxt(r'/Users/zhouzilong/Desktop/python/modling /lecture5/黑枸杞溶出.txt')
+data = np.loadtxt(r'黑枸杞溶出.txt')
 t = data[:, 0]
 A = data[:, 1]
 nga=NGA(100,3,10,90,1000,f1)
