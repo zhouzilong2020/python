@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.static import f
 
 class MLR:
     #  初始化，用户输入X，Y和是否需要截距
@@ -19,11 +20,6 @@ class MLR:
             except:
                 print("please check the type of Y!")
         self.intersect = intersect
-        # 为X在左边添加一列全一列
-        if self.intersect == True:
-            col = self.X.shape[0]
-            new_1 = np.ones((col, 1))
-            self.X = np.c_[new_1, self.X]
         self.A = None
             
     # 给出一组新的值，返回预测值
@@ -50,13 +46,31 @@ class MLR:
 
     # 按照(XTX)-1XTY,计算系数A
     def _fit(self):
-        self.A = np.linalg.inv(self.X.T @ self.X) @ self.X.T @ self.Y
+        # 为X在左边添加一列全一列
+        if self.intersect == True:
+            col = self.X.shape[0]
+            new_1 = np.ones((col, 1))
+            X = np.c_[new_1, self.X]
+        self.A = np.linalg.inv(X.T @ X) @ X.T @ self.Y
 
     # 获得系数 
     def getCoef(self):
         if self.A == None:
             self._fit()
         return self.A
+
+    def Ftest(self, alpha):
+        n = len(self.X)
+        Y_predict = self.predict(self.X)
+        Qe = ((self.Y - Y_predict)**2).sum()
+        Y_avg = self.Y.mean()
+        U = ((Y_predict - Y_avg)**2).sum()
+        F_predict = U/(Qe/(n-2))
+
+        k = self.X.shape[1]
+        F_theory = f.isf(alpha, 1, n-k-1)
+
+        return [F_predict, F_theory, F > F_theory]
 
 def loadtxt(path):
     return np.loadtxt('{}'.format(path))

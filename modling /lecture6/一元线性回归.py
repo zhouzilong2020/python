@@ -9,4 +9,4 @@ ones = np.ones(len(x))
 X = np.c_[ones, x]
 
 Xt = X.T
-X_1 = Xt
+X_1 = (Xt*X).linalg.
