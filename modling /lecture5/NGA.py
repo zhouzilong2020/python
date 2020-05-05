@@ -7,6 +7,7 @@ class Individual:
     def __init__(self,n):
         self._n=n
         self.chromsome=npr.random(n)
+        
     def crossover(self,another):
         startPos = npr.randint(self._n) #交叉的起始位置
         jeneLength = npr.randint(self._n)+1 # //交叉的长度
@@ -122,10 +123,10 @@ def f1(v):
     error = np.sum((A-predict)**2)
     return error
 
-data = np.loadtxt(r'黑枸杞溶出.txt')
+data = np.loadtxt(r'/Users/zhouzilong/Desktop/python/modling /lecture5/黑枸杞溶出.txt')
 t = data[:, 0]
 A = data[:, 1]
-nga=NGA(100,3,10,90,1000,f1)
+nga=NGA(100,3,10,90,100,f1)
 nga.solve()
 print(nga.getAnswer())
 # 计算结果
