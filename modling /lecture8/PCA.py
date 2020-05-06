@@ -20,9 +20,9 @@ class PCA:
         P = self.P[: , :k]
         return T, P
 
-class PCR:
-    def __init__(self):
-        pass
+# class PCR:
+#     def __init__(self):
+#         pass
 
 def main():
     S = np.loadtxt(r'S.txt').T

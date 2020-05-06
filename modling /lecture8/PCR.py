@@ -28,8 +28,9 @@ class PCR:
         return self.mlr.Ftest(arfa)
 
 
-S = np.loadtxt(r'xx.txt')
-C = np.loadtxt(r'yy.txt')
+data = np.loadtxt(r'data.txt')
+S = data[ : , :-1]
+C = data[ : , -1:]
 pcr = PCR(S, C)
 
 print("秩分析", pcr.confirmPCs())
