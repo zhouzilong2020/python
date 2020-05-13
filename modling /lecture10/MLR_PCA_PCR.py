@@ -97,6 +97,7 @@ class PCR:
     def __init__(self,X,Y):
         self.X=X
         self.Y=Y
+        self.pca = None
 
     # 对X进行SVD分解，返回分解后的矩阵，可以使用compare，和cum来确定独立分组数目
     def confirmPCs(self):
@@ -106,6 +107,10 @@ class PCR:
 
     # PCs为独立分组数
     def fit(self,PCs):
+        # 如果在进行主成分回归时没有先进行主成分分解，则进行主成分分解
+        if self.pca == None:
+            self.confirmPCs()
+
         T, P = self.pca.PCAdecompose(PCs)
         self.P = P
         self.T = T

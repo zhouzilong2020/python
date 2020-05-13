@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 X = np.loadtxt(r"wheat_X.txt")
 y = np.loadtxt(r"wheat_Y.txt")
+
 # B[B==-1]=0
 aver=X.mean(axis=0)
 std=X.std(axis=0)
@@ -45,7 +46,7 @@ x_max = T[:, 0].max() + .5
 y_min = T[:, 1].min() - .5
 y_max = T[:, 1].max() + .5
 h = .2
-xx, yy = np.meshgrid( np.array(x_min, x_max, h), np.array(y_min, y_max, h) )
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h),  np.arange(y_min, y_max, h))
 
 t0 = xx.flatten()
 t1 = yy.flatten()
