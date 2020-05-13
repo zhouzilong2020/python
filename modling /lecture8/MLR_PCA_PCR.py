@@ -47,8 +47,8 @@ class MLR:
             self._fit()
         return self.A
 
-    # F检验
-    def Ftest(self, alpha):
+    # F检验，alpha为显著性水平，一般默认为0.05
+    def Ftest(self, alpha = 0.05):
         global f
         n = len(self.X)
         Y_predict = self.predict(self.X)
@@ -69,3 +69,58 @@ class MLR:
             ans.append([f, F_theory, f > F_theory])
         return ans
 
+# SVD分解--->PCA分解
+class PCA:
+    def __init__(self, X):
+        self.X = X
+    
+    def SVDdecompose(self):
+        # SVD分解
+        B = np.linalg.svd(self.X, full_matrices=False)
+        self.lamda = B[1]
+        # 进行PCA分解
+        self.P = B[2].T
+        self.T = B[0]*B[1]
+        # 前一组分和后一组分的比例-->用以寻找突越点
+        compare = [self.lamda[i]/self.lamda[i+1] for i in range(len(self.lamda) - 1) ]
+        # 累计百分比，可以说占用累计百分比的信息量
+        cum = self.lamda.cumsum()/self.lamda.sum() * 100
+        return np.array(compare), cum
+
+    # 取出前k个组分，进行降维
+    def PCAdecompose(self, k):
+        T = self.T[: , :k]
+        P = self.P[: , :k]
+        return T, P
+
+class PCR:
+    def __init__(self,X,Y):
+        self.X=X
+        self.Y=Y
+
+    # 对X进行SVD分解，返回分解后的矩阵，可以使用compare，和cum来确定独立分组数目
+    def confirmPCs(self):
+        self.pca=PCA(self.X)
+        compare,cum=self.pca.SVDdecompose()
+        return compare,cum
+
+    # PCs为独立分组数
+    def fit(self,PCs):
+        T, P = self.pca.PCAdecompose(PCs)
+        self.P = P
+        self.T = T
+        # 使用降维后的空间来做多元线性回归
+        self.mlr = MLR(T, self.Y, False)
+        self.mlr.fit()
+        # 得到转换后的空间的一组系数矩阵
+        self.A=self.mlr.getCoef()
+
+    # 使用在新空间下进行预测，
+    def predict(self,Tnew):
+        T = np.dot(Tnew,self.P)
+        ans = self.mlr.predict(T)
+        return ans
+        
+    # 进行fisher检验
+    def fTest(self,arfa):
+        return self.mlr.Ftest(arfa)

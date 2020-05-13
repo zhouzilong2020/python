@@ -1,7 +1,5 @@
 import numpy as np
 from scipy.stats import f
-
-# 多元线性回归
 class MLR:
     #  初始化，用户输入X，Y和是否需要截距
     def __init__(self, X, Y, intersect = False):
