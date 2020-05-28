@@ -4,7 +4,7 @@ from MLR_PCA_PCR import PCR
 # 读取数据
 X = np.loadtxt(r'wheat_X.txt')
 y = np.loadtxt(r'wheat_y.txt')
-
+# -—————————————————————————聚类分析—————————————————————
 # 将X中的各个维度的数据标准化
 av = X.mean(axis=0)
 std = X.std(axis=0)
@@ -33,8 +33,10 @@ plt.scatter(T[y==1,d1],T[y==1,d2],c='b',marker='o',label='good')
 plt.scatter(T[y==-1,d1],T[y==-1,d2],c='r',marker='v',label='bad')
 # 画图的图例的摆放位置
 plt.legend(loc='upper left')
+# -————————————————————————————————————————————————————
 
 
+#——————————————————————————概率等高线图——————————————————
 x_min = T[:, 0].min() - .5
 x_max = T[:, 0].max() + .5
 y_min = T[:, 1].min() - .5
