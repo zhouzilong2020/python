@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from MLR_PCA_PCR import PCR
+from .MLR_PCA_PCR import PCR
 # 读取数据
 X = np.loadtxt(r'wheat_X.txt')
 y = np.loadtxt(r'wheat_y.txt')

@@ -112,7 +112,7 @@ class PCR:
         return self.mlr.Ftest(arfa)
 
 def main():
-    data = np.loadtxt(r'data.txt')
+    data = np.loadtxt(r'data1.txt')
     X = data[ : , :-1]
     Y = data[ : , -1:]
     pcr = PCR(X, Y)
