@@ -44,9 +44,8 @@ class Cell:
         return son
 
 
-class Species:
-    # 使用2x2的方格，是CA的关键
-    cells = [[]]
+class Species1:
+    cells = []
     evalFunc = None
     digit_num = 0
     bestPos = 0
@@ -69,21 +68,40 @@ class Species:
             cell.eval = evalFunc(cell.digits)
             self.cells.append(cell)
 
+    def reset(self):
+        self.cells.clear()
+        for i in range(self.population):
+            cell = Cell(self.digit_num)
+            cell.eval = self.evalFunc(cell.digits)
+            self.cells.append(cell)
+
     # 找最好的个体位置
     def findBestWorst(self):
         self.cells.sort(key=lambda o: o.eval)
         self.bestPos = 0
         self.worstPos = self.population - 1
 
+    def getBestNeighborPos(self, i):
+        pos = []
+        if i - 10 >= 0:
+            pos.append(i - 10)
+        if i + 10 < self.population:
+            pos.append(i + 10)
+        if (i - 1) % 10 == i % 10 and i - 1 >= 0:
+            pos.append(i - 10)
+        if (i + 1) % 10 == i % 10 and i + 1 < self.population:
+            pos.append(i + 10)
+        best = self.cells[pos[0]]
+        for p in pos:
+            if best.eval > self.cells[p].eval:
+                best = self.cells[p]
+        return best
+
     def crossover(self):
         father_pos = npr.randint(0, self.population)
-        mother_pos = npr.randint(0, self.population)
-
-        while mother_pos == father_pos:
-            mother_pos = npr.randint(0, self.population)
-
         father = self.cells[father_pos]
-        mother = self.cells[mother_pos]
+        # 这里是向上下左右中最好的那一个学习
+        mother = self.getBestNeighborPos(father_pos)
 
         son1, son2 = father.crossover(mother)
 
@@ -115,6 +133,7 @@ class Species:
 
     def solve(self):
         i = 0
+        avg = []
         while i < self._t:
             # print(i, "---", self._t)
             for j in range(self._cP):
@@ -124,6 +143,7 @@ class Species:
             # print(f"avg:{self.getAvg()}")
             # print("func value:", self.cells[self.bestPos].eval)
             i = i + 1
+            avg.append(self.getAvg())
 
     def getBest(self):
         self.findBestWorst()
@@ -145,10 +165,5 @@ def func(digits):
 
 
 cnt = 0
-for i in range(100):
-    CGA = Species(100, 4, 50, 50, 100, func)
-    CGA.solve()
-    if -CGA.getBest() > 0.9904:
-        cnt += 1
-    print(
-        f"{i} in {100}, avg:{CGA.getAvg()}, best:{CGA.getBest()}, is local:{'true' if -CGA.getBest() > 0.9904 else 'false'}")
+CGA = Species1(400, 4, 50, 50, 100, func)
+CGA.solve()
